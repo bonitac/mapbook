@@ -43,6 +43,29 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// Maps page
+app.get("/maps", (req, res) => {
+  res.render("maps")
+});
+
+// User page
+app.get("/user/:user", (req, res) => {
+  res.render("user");
+});
+
+// KNEX METHOD TO PULL STUFF FROM STUFF
+knex.select('*')
+  .from('users')
+  .then((rows) => {
+    for (let row of rows) {
+      console.log(row.name);
+    }
+  })
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+
+
