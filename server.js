@@ -17,6 +17,36 @@ const knexLogger  = require('knex-logger');
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
+
+// FUNCTION TO FETCH FROM KNEX
+function knexSelectWhere(select, table, where, id, ejs, res) {
+  let templateVars = {
+    "id": id
+  };
+  knex
+    .select(select)
+    .from(table).where(where[0], where[1])
+    .then((results) => {
+      let resultsObj = JSON.parse(JSON.stringify(results));
+      templateVars.data = resultsObj;
+      res.render(ejs, templateVars);
+    });
+}
+
+function knexSelect(select, table, id, ejs, res) {
+  let templateVars = {
+    "id": id
+  };
+  knex
+    .select(select)
+    .from(table)
+    .then((results) => {
+      let resultsObj = JSON.parse(JSON.stringify(results));
+      templateVars.data = resultsObj;
+      res.render(ejs, templateVars);
+    });
+}
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -49,18 +79,12 @@ app.get("/maps", (req, res) => {
 });
 
 // User page
-app.get("/user/:user", (req, res) => {
-  res.render("user");
+app.get("/users/:user", (req, res) => {
+  knexSelect("*", "users", req.params.user, "user", res)
 });
 
-// KNEX METHOD TO PULL STUFF FROM STUFF
-knex.select('*')
-  .from('users')
-  .then((rows) => {
-    for (let row of rows) {
-      console.log(row.name);
-    }
-  })
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
