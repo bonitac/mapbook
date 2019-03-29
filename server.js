@@ -78,18 +78,6 @@ app.get("/maps", (req, res) => {
   res.render("maps")
 });
 
-// Google map demo page
-app.get("/gmaps", (req, res) => {
-  res.render("googleMaps")
-});
-// Google map demo page w search function
-app.get("/maps", (req, res) => {
-  res.render("maps")
-});
-
-
-
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });

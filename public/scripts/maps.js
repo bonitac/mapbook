@@ -52,18 +52,7 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
-      // set class
-      markers.setAttribute("class", "markers");
-
-      var infoWindow = new google.maps.InfoWindow({
-        content: place.name + place.geometry.location
-      });
-      markers.forEach(function(marker) {
-        google.maps.event.addListener(marker, 'click', function (){
-          console.log(marker);
-          infoWindow.open(map,marker)
-        })
-      });
+      console.log(markers)
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -79,12 +68,13 @@ function initAutocomplete() {
 function loadInfoWindow(place){
   var infoWindow = new google.maps.InfoWindow({
     content: place.name + place.geometry.location
-  });     
+  });
+  infoWindow.open(map,marker.place);
 }
+
 
 $(document).ready(function() {
   initAutocomplete();
-  // google.maps.event.addListener(marker, 'click', loadInfoWindow(marker.place));
-  //on click of marker, call loadInfoWindow
-  // $('')
+  //on click of add button on marker, add to database
+  $('button').onclick(knex('points').insert(map_id: map, title:$('input'), date_created: , description: ))
 });
