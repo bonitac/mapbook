@@ -9,7 +9,7 @@
        * element that contains the map. */
       #map {
         height: 60%;
-        width: 50%;
+        width: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -111,6 +111,13 @@
           mapTypeId: 'roadmap'
         });
 
+        function getInfo() {
+          $.ajax("/tweets")
+            .done((response) => {
+              renderTweets(response);
+            });
+        };
+
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -137,9 +144,12 @@
           });
           markers = [];
 
+          let infoWindow = new google.maps.InfoWindow();
+      
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
+            console.log(place)
             if (!place.geometry) {
               console.log("Returned place contains no geometry");
               return;
@@ -151,39 +161,40 @@
               anchor: new google.maps.Point(17, 34),
               scaledSize: new google.maps.Size(25, 25)
             };
-
+            
             // Create a marker for each place.
             markers.push(new google.maps.Marker({
               map: map,
               icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
               title: place.name,
+              photo: place.photos[0].getUrl(),
               position: place.geometry.location
             }));
-
-            var infoWindow = new google.maps.InfoWindow({
-              content: place.name + place.geometry.location
-            });
-
-            function loadInfoWindow(){
-                            
+            
+            
+            function loadInfoWindow(markers) {
+              for (let i = 0; i < markers.length; i++) {
+                google.maps.event.addListener(markers[i], 'click', function () {
+                  infoWindow.setContent(`<h3>${markers[i].title}</h3>`
+                    + `<img src="${markers[i].photo}" style="max-width:180px;max-height:100px;">`
+                    + '<form>Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br></form>'
+                    + '<button type="button">Add point</button>')
+                  infoWindow.open(map, markers[i]);
+                })
+              };
             }
-
-            markers.forEach(function(marker) {
-            google.maps.event.addListener(marker, 'click', function (){
-              infoWindow.open(map,marker)
-            })
-          });
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
+            loadInfoWindow(markers)
+                  
+                  if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
         });
-      }
+        map.fitBounds(bounds);
+      });
+    }
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7JuJpmxAYqCHC0Z_7STfFWPpXGZ-Z_aU&libraries=places&callback=initAutocomplete"
