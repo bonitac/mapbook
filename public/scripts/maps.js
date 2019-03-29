@@ -52,16 +52,18 @@ function initAutocomplete() {
         title: place.name,
         position: place.geometry.location
       }));
+      // set class
+      markers.setAttribute("class", "markers");
 
-      // var infoWindow = new google.maps.InfoWindow({
-      //   content: place.name + place.geometry.location
-      // });
-      // markers.forEach(function(marker) {
-      //   google.maps.event.addListener(marker, 'click', function (){
-      //     console.log(marker);
-      //     infoWindow.open(map,marker)
-      //   })
-      // });
+      var infoWindow = new google.maps.InfoWindow({
+        content: place.name + place.geometry.location
+      });
+      markers.forEach(function(marker) {
+        google.maps.event.addListener(marker, 'click', function (){
+          console.log(marker);
+          infoWindow.open(map,marker)
+        })
+      });
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
