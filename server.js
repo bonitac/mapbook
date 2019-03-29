@@ -83,8 +83,8 @@ app.get("/gmaps", (req, res) => {
   res.render("googleMaps")
 });
 // Google map demo page w search function
-app.get("/demo", (req, res) => {
-  res.render("demo")
+app.get("/maps", (req, res) => {
+  res.render("maps")
 });
 
 

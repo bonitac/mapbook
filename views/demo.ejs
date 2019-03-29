@@ -164,6 +164,10 @@
               content: place.name + place.geometry.location
             });
 
+            function loadInfoWindow(){
+                            
+            }
+
             markers.forEach(function(marker) {
             google.maps.event.addListener(marker, 'click', function (){
               infoWindow.open(map,marker)
