@@ -65,16 +65,9 @@ function initAutocomplete() {
   });
 }
 
-function loadInfoWindow(place){
-  var infoWindow = new google.maps.InfoWindow({
-    content: place.name + place.geometry.location
-  });
-  infoWindow.open(map,marker.place);
-}
-
 
 $(document).ready(function() {
   initAutocomplete();
   //on click of add button on marker, add to database
-  $('button').onclick(knex('points').insert(map_id: map, title:$('input'), date_created: , description: ))
+  // $('button').onclick(knex('points').insert(map_id: map, title:$('input'), date_created: , description: ))
 });
