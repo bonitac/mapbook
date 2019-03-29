@@ -78,9 +78,13 @@ app.get("/maps", (req, res) => {
   res.render("maps")
 });
 
-// User page
-app.get("/users/:user", (req, res) => {
-  knexSelect("*", "users", req.params.user, "user", res)
+// Google map demo page
+app.get("/gmaps", (req, res) => {
+  res.render("googleMaps")
+});
+// Google map demo page w search function
+app.get("/demo", (req, res) => {
+  res.render("demo")
 });
 
 
@@ -89,7 +93,3 @@ app.get("/users/:user", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
-
-
