@@ -30,6 +30,8 @@ function initAutocomplete() {
     });
     markers = [];
 
+    let infoWindow = new google.maps.InfoWindow();
+
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
@@ -46,13 +48,42 @@ function initAutocomplete() {
       };
 
       // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
-        title: place.name,
-        position: place.geometry.location
-      }));
-      console.log(markers)
+      if (place.photos){
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
+          title: place.name,
+          photo: place.photos[0].getUrl(),
+          position: place.geometry.location
+        }));
+      } else {
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
+          position: place.geometry.location
+        }));
+      }
+
+      function loadInfoWindow(markers) {
+        for (let i = 0; i < markers.length; i++) {
+          google.maps.event.addListener(markers[i], 'click', function () {
+            if (markers[i].title){
+            infoWindow.setContent(`<h3>${markers[i].title}</h3>`
+              + `<img src="${markers[i].photo}" style="max-width:180px;max-height:100px;">`
+              + '<form>Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br></form>'
+              + '<button type="button">Add point</button>')
+            } else {
+              infoWindow.setContent(
+                '<form>Name:<br><input type="text" name="name" style=width:95%;height:20px;text-align:top;><br></form>'
+                + '<button class="picture" type="button">Add picture</button>'
+                + '<form>Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br></form>'
+                + '<button type="button">Add point</button>')
+              }
+            infoWindow.open(map, markers[i]);
+          })
+        };
+      }
+      loadInfoWindow(markers)
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
