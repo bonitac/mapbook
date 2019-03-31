@@ -111,13 +111,6 @@
           mapTypeId: 'roadmap'
         });
 
-        function getInfo() {
-          $.ajax("/tweets")
-            .done((response) => {
-              renderTweets(response);
-            });
-        };
-
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -162,7 +155,8 @@
               scaledSize: new google.maps.Size(25, 25)
             };
             
-            // Create a marker for each place.
+            //EDITED
+            if (place.photos){
             markers.push(new google.maps.Marker({
               map: map,
               icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
@@ -170,15 +164,30 @@
               photo: place.photos[0].getUrl(),
               position: place.geometry.location
             }));
+          } else {
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: "https://66.media.tumblr.com/tumblr_m7wvguKViU1r17mw1.png",
+              position: place.geometry.location
+            }));
+          }
             
-            
+            //EDITED
             function loadInfoWindow(markers) {
               for (let i = 0; i < markers.length; i++) {
                 google.maps.event.addListener(markers[i], 'click', function () {
+                  if (markers[i].title){
                   infoWindow.setContent(`<h3>${markers[i].title}</h3>`
                     + `<img src="${markers[i].photo}" style="max-width:180px;max-height:100px;">`
-                    + '<form>Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br></form>'
-                    + '<button type="button">Add point</button>')
+                    + '<form class="point">Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br>'
+                    + '<button type="submit">Add point</button></form>')
+                  } else {
+                    infoWindow.setContent(
+                      '<form class="point">Name:<br><input type="text" name="name" style=width:95%;height:20px;text-align:top;><br>'
+                      + '<button class="picture" type="button">Add picture</button>'
+                      + '<form>Description:<br><input type="text" name="description" style=width:95%;height:40px;text-align:top;><br>'
+                      + '<button type="submit">Add point</button></form>')
+                    }
                   infoWindow.open(map, markers[i]);
                 })
               };
