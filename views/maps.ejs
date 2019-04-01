@@ -1,59 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Maps</title>
+    <title>mapbook</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <!-- Latest compiled and minified CSS Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <link rel="stylesheet" href="styles/output.css" type="text/css" />
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7JuJpmxAYqCHC0Z_7STfFWPpXGZ-Z_aU&libraries=places&callback=initAutocomplete"
-   async defer></script>
-   <script type="text/javascript" src="/scripts/app.js"></script>
-   <script type="text/javascript" src="/scripts/maps.js"></script>
+
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/output.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7JuJpmxAYqCHC0Z_7STfFWPpXGZ-Z_aU&libraries=places"
+    async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+
+    <script type="text/javascript" src="/scripts/app_maps.js"></script>
+    <script type="text/javascript" src="/scripts/google_map.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <style>
+      .affix {
+        top: 20px;
+        z-index: 9999 !important;
+      }
+    </style>
   </head>
-  <body>
-    <header>
-      <nav id="nav-bar">
-        <img class="logo" src="/images/logo.png">
-        <span class="header">Mapbook</span>
-        <!-- Login or Dropdown of Maps -->
-        <div class="btn-group">
-          <button onclick="loginToggle()" type="button" class="btn btn-info">Login</button>
-          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Favourite Maps</a></li>
-            <li><a href="#">Contributed Maps</a></li>
-            <li><a href="#">All Maps</a></li>
-          </ul>
-        </div>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
-      </nav>
-    </header>
-    
-    <form>
-      <div class="login-form">
-        <label for="email">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" autocomplete="exampleInputPassword1"id="exampleInputPassword1" placeholder="Password">
-        <button type="submit" class="btn btn-info">Submit</button>
-      </div>
-    </form>
+  <body class="bg-light">
 
-    <div id="map"></div>
-    <input id="pac-input" class="controls" type="text" placeholder="Look up a place!">
-   
+<!-- Nav Bar  -->
+    <nav id="top_bar" class="navbar navbar-expand-lg fixed-top navbar-light bg-info">
+      <!-- Logo  -->
+      <a class="ml-3 mr-3" href="/maps">
+        <img src="/icon/Logo.png" class="rounded float-left" width="32" height="32">
+      </a>
+      <!-- Header  -->
+      <a class="navbar-brand mr-auto mr-lg-0 text-light" href="/maps">mapbook</a>
+
+      <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <!-- Slogan / Space in the middle -->
+        <ul class="navbar-nav m-auto">
+          <a class="navbar-brand mr-auto mr-lg-0 text-light" href="/maps">share maps with friends</a>
+          <!-- <p class="text-light text-center">share maps with friends</p> -->
+        </ul>
+        <!-- User Info.  -->
+        <form class="form-inline my-2 my-lg-0  mr-10">
+          <!-- Avatar  -->
+          <a class="ml-0 mr-2">
+            <% if(curUser === false) { %>
+              <img src="/icon/User.png" class="rounded float-left" width="32" height="32">
+            <% } else { %>
+              <img src="/icon/<%=curUser.avatar%>" class="rounded float-left" width="32" height="32">
+            <% } %>
+          </a>
+          <!-- User Name and Menu -->
+          <ul class="navbar-nav ml-1 mr-5">
+            <li class="nav-item dropdown mr-4">
+              <% if(curUser === false) { %>
+                <button id="login_btn" type="button" class="mr-5 btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</button>
+                <div class="dropdown-menu float-right" aria-labelledby="user_dropdown">
+                  <div class="dropdown-item">
+                    Name : <br>
+                    <input type="text" id="name_input" class="user_login_input">
+                  </div>
+                  <div class="dropdown-item">
+                    Password : <br>
+                    <input type="password" id="password_input" class="user_login_input">
+                  </div>
+                  <div class="dropdown-item">
+                    <button type="button" id="login_ok_btn" class="btn btn-info">OK</button>
+                  </div>
+                </div>
+              <% } else { %>
+                <button id="user_dropdown" type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=curUser.name%></button>
+                <p id="uid" style="display:none;"><%=curUser.id%></p>
+                <div class="dropdown-menu" aria-labelledby="user_dropdown">
+                  <a class="dropdown-item" href="/maps">All Maps</a>
+                  <a class="dropdown-item" href="/favourite">Favorite Maps</a>
+                  <a class="dropdown-item" href="/contribute">Contributed Maps</a>
+                  <a class="dropdown-item" href="/logout">Log Out</a>
+                </div>
+              <% } %>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </nav>
+
+
+
+<!-- Major Area  -->
+    <div class="row no-gutters major_area">
+      <!-- Map List Area -->
+      <div class="alert-info list-group list-group-flush col-2" id="left_side_bar">
+        <!-- New Map Button trigger modal -->
+        <button id="new_map_btn" type="button" class="text-center list-group-item bg-light list-group-item-action active text-dark" data-toggle="modal" data-target="#newMap">
+          <img src="/icon/Add.png" class="rounded float-left" width="20" height="20">
+          Create New Map
+        </button>
+        <!-- New Map Modal -->
+        <div class="modal fade" id="newMap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content bg-info text-light">
+              <div class="modal-header ">
+                <h5 class="modal-title" id="exampleModalLabel">New Map</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="new_map_name">Name:</label>
+                  <input type="text" class="form-control" id="new_map_name" placeholder="What's you new map's name?">
+                </div>
+                <div class="form-group">
+                  <label for="new_map_desscription">Description:</label>
+                  <textarea class="form-control" id="new_map_description" rows="3" placeholder="What's this map for?"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="add_map_btn" type="button" class="text-dark btn btn-light add_map_btn" data-dismiss="modal">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Map List -->
+        <% for(let i = maps.length - 1; i >= 0; i --) { %>
+          <!-- All Map List -->
+          <% if(mapListType === 1) { %>
+            <a href="/maps/<%=maps[i].id%>" class="text-center list-group-item list-group-item-info list-group-item-action">
+          <% } %>
+          <!-- Favourite Map List -->
+          <% if(mapListType === 2) { %>
+            <a href="/favourite/<%=maps[i].id%>" class="text-center list-group-item list-group-item-info list-group-item-action">
+          <% } %>
+          <!-- Contribute Map List -->
+          <% if(mapListType === 3) { %>
+            <a href="/contribute/<%=maps[i].id%>" class="text-center list-group-item list-group-item-info list-group-item-action">
+          <% } %>
+            <img src="<%=maps[i].icon%>" class="rounded float-left" width="20" height="20">
+            <%=maps[i].title%>
+            <% if(curUser.id === maps[i].user_id) { %>
+              <!-- This is Current User Contributed Map -->
+              <img src="/icon/<%=curUser.avatar%>" class="rounded float-right"  width="20" height="20">
+            <% } else { %>
+              <% if(curUser !== false) { %>
+                <% for(let us of user_favourite) { %>
+                  <% if(curUser.id === us.user_id) { %>
+                    <% if(maps[i].id === us.map_id) { %>
+                      <!-- This is Current User Liked Map -->
+                      <img src="/icon/Like.png" class="rounded float-right"  width="20" height="20">
+                    <% } %>
+                  <% } %>
+                <% } %>
+              <% } %>
+            <% } %>
+          </a>
+        <% } %>
+      </div>
+      <!-- Certer Area -->
+      <div class="bg-light list-group list-group-flush col-10" id="center_area">
+        <!-- This is our Central Area -->
+      </div>
+
+    </div>
+<!-- This is where GM plugin. -->
+    <div id="google_map_area">
+      <!-- Google Map  -->
+      <div id="map" class="google_map" >
+      </div>
+      <input id="pac-input" class="controls" type="text" placeholder="Look up a place!" style="display:none" >
+      <!-- Map Info. Area -->
+      <div class="fixed-bottom alert-light" id="map_info_area">
+        <% for(let map of maps) { %>
+          <% if(map.id == curMapID) { %>
+            <div class="container">
+              <div class="row text-dark mt-3">
+                <div class="col-4">Name: <%=map.title%></div>
+                <div class="col-4">Created at: <%=map.date_created.split('T')[0];%></div>
+                <div id="creator" class="col-4">Created by:
+                    <% for(let user of users) { %>
+                      <% if(user.id === map.user_id) {%>
+                        <%= user.name %>
+                      <% } %>
+                    <% } %>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-8 text-dark">
+                  Description: <%=map.description%>
+                </div>
+                <div class="col-4 text-dark">
+                  <% if(curUser !== false) { %>
+                  <!-- If Current User Liked Selected Map -->
+                  <% let like = false; %>
+                  <% for(let us of user_favourite) { %>
+                    <% if(curMapID == us.map_id && curUser.id == us.user_id) { %>
+                      <% like = true; %>
+                      <button id="like_btn" type="button" class="unlike_btn btn btn-light" src="/icon/Null.png"></button>
+                      <p id="like_sign" style="display: none">1</p>
+                    <% } %>
+                  <% } %> <!-- for(let us of user_favourite)-->
+                  <% if(like === false) { %>
+                    <button id="like_btn" type="button" class="like_btn btn btn-light" src="/icon/Null.png"></button>
+                    <p id="like_sign" style="display: none">0</p>
+                  <% } %>
+                <% } else { %>
+                  <!-- !------ Not Logged In ------! -->
+                <% } %> <!-- if(curUser !== false)-->
+                </div>
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+
   </body>
 </html>
