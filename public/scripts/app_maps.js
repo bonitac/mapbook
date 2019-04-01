@@ -24,7 +24,6 @@ $(document).ready( () => {
     insertObj.user_id = $('#uid').html();
     let curDate = GetTodayDate();
     insertObj.date_created = curDate;
-    alert('insertObj = ', insertObj);
     $.ajax({
       method: "PUT",
       url: "/maps/add",
@@ -53,7 +52,7 @@ $(document).ready( () => {
       $('#password_input').val("");
       window.location = url;
     } else {
-      alert("User Name or Password Incorrect!");
+      alert("Username or password incorrect!");
       // alert("User Name: " + name + " or Password: " + password + " is incorrect!");
     }
 
@@ -64,24 +63,16 @@ $(document).ready( () => {
   let mapID = path.split('/')[2];
 
   $('#like_btn').click(function(event) {
-    console.log('path =', path);
-    console.log('mapType =', mapType);
-    console.log('mapID =', mapID);
     let like_sign = $('#like_sign').html();
 
-    console.log('like_sign =', like_sign);
-    alert('like_sign = ' + like_sign);
 
     let url = "";
     let method = "";
     let insertObj = {};
     let creator = $('#creator').text().split(':')[1].trim();
     let curUserName = $('#user_dropdown').text();
-    console.log('mapType = ', mapType);
-    console.log('creator = ', creator);
-    console.log('curUserName = ', curUserName);
     if(mapType === "contribute" || creator === curUserName) { // Cannot like contributed map
-      alert('You Created and Contributed to this map, you cannot "like" it.');
+      alert('You created and contributed to this map. You cannot "like" it.');
     } else {
       if(like_sign === '1') { // Already Liked it, can unlike it
         url = "/unlike";  // Remove from DB
@@ -94,15 +85,12 @@ $(document).ready( () => {
       insertObj.map_id = mapID;
       let curDate = GetTodayDate();
       insertObj.date = curDate;
-      console.log("url = ", url);
-      console.log("method = ", method);
       $.ajax({
       method: method,
       url: url,
       data: insertObj
       }).done((datas) => {
         let url = "/"+ mapType +"/" + mapID;
-        console.log(">>> url = " + url);
         //window.location.reload(); // Any Other Function/Way to do this?
         window.location = url;
       });

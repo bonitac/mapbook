@@ -75,7 +75,7 @@ function loadInfoWindow(infoWindow) {
       if (markers[i].title) {
         infoWindow.setContent(`<h5 class="title">${markers[i].title}</h5>`
           + `<img src="${markers[i].photo}" class="image" style="max-width:180px;max-height:100px;">`
-          + '<form action="/maps" method="post" class="setPoint">Description:<br><textarea class="description" type="text" name="description" style="width:95%;height:40px;"></textarea><br>'
+          + '<form action="/maps" method="post" class="setPoint mt-2 mb-2">Description:<br><textarea class="description" type="text" name="description" style="width:95%;height:40px;"></textarea><br>'
           + '<button type="submit">Add point</button></form>'
           + `<div class="lat" style="display: none">${markers[i].position.lat()}</div>`
           + `<div class="lng" style="display: none">${markers[i].position.lng()}</div>`
@@ -83,7 +83,7 @@ function loadInfoWindow(infoWindow) {
           + '<div class="map_id" style="display: none">1</div>')
       } else {
         infoWindow.setContent(
-          '<form action="/maps" method="post" class="setPoint">Name:<br><input type="text" name="name" class="name" style=width:95%;height:20px;text-align:top;><br>'
+          '<form action="/maps" method="post" class="setPoint mt-2 mb-2">Name:<br><input type="text" name="name" class="name" style=width:95%;height:20px;text-align:top;><br>'
           + '<button class="picture" type="button">Add picture</button>'
           + 'Description:<br><input type="text" name="description" class="description" style=width:95%;height:40px;text-align:top;><br>'
           + '<button type="submit">Add point</button></form>'
@@ -127,9 +127,9 @@ console.log(urlString);
           newMarker.addListener('click', function () {
             infoWindow.setContent(`<h5 class="title">${point.title}</h5>`
               + `<img src="${point.image}" class="image" style="max-width:180px;mad-height:100px;">`
-              + `<div class="description">${point.description}</div>`
-              + `<button class="edit">Edit point</button>`
-              + `<form action="/maps/editPoint" method="post" class="editPoint"
+              + `<div class="description mt-2 mb-2">${point.description}</div>`
+              + `<button class="edit mb-2">Edit</button>`
+              + `<form action="/maps/editPoint" method="post" class="editPoint "
               style="display:none;
                      padding:7px;
                      margin-top: 10px;
@@ -141,8 +141,8 @@ console.log(urlString);
                  Name:<br><input type="text" name="name" class="editName" style="width:100%;height:20px;"><br>`
               + 'Image URL:<br><input type="text" style=width:100% class="editImage"><br>'
               + 'Description:<br><input type="text" name="description" class="editDescription" style="width:100%;height:40px;"><br>'
-              + '<button type="submit" style="margin-top:7px;">Update point</button></form>'
-              + `<form class="delete"><button type="submit">Delete point</button></form>`
+              + '<button type="submit" style="margin-top:7px;">Update</button></form>'
+              + `<form class="delete"><button type="submit">Delete</button></form>`
               + `<div style="display: none" class="point_id">${point.id.toString()}</div>`)
             closeAllInfoWindows();
             infoWindow.open(map, newMarker);
