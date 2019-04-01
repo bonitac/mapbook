@@ -16,24 +16,37 @@ $(document).ready( () => {
     return mapIcon;
   }
 
+  // $('#new_map_btn').click(function(event) {
+  //   event.preventDefault();
+
+  // }
+
+
   $('#add_map_btn').click(function(event) {
-    let insertObj = {};
-    insertObj.title = $('#new_map_name').val();
-    insertObj.icon = getRandomInt(9);
-    insertObj.description = $('#new_map_description').val();
-    insertObj.user_id = $('#uid').html();
-    let curDate = GetTodayDate();
-    insertObj.date_created = curDate;
-    $.ajax({
-      method: "PUT",
-      url: "/maps/add",
-      data: insertObj
-      }).done((datas) => {
-        let latestID = datas[datas.length - 1].id;
-        let url = "/maps/" + latestID.toString();
-        //window.location.reload(); // Any Other Function/Way to do this?
-        window.location = url;
-      });
+
+    let curUserName = $('#uid').html();
+    if(curUserName === "0"|| curUserName == 0) { // Cannot like contributed map
+      alert('Please login at first.');
+    } else {
+      let insertObj = {};
+      insertObj.title = $('#new_map_name').val();
+      insertObj.icon = getRandomInt(9);
+      insertObj.description = $('#new_map_description').val();
+      insertObj.user_id = $('#uid').html();
+      let curDate = GetTodayDate();
+      insertObj.date_created = curDate;
+      $.ajax({
+        method: "PUT",
+        url: "/maps/add",
+        data: insertObj
+        }).done((datas) => {
+          let latestID = datas[datas.length - 1].id;
+          let url = "/maps/" + latestID.toString();
+          //window.location.reload(); // Any Other Function/Way to do this?
+          window.location = url;
+        });
+    }
+
   });
 
   $('#login_ok_btn').click(function(event) {

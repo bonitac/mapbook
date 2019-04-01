@@ -125,10 +125,14 @@ console.log(urlString);
           });
           markers.push(newMarker);
           newMarker.addListener('click', function () {
-            infoWindow.setContent(`<h5 class="title">${point.title}</h5>`
+
+            let curUserName = $('#uid').html();
+            console.log("name", curUserName);
+            if(curUserName === "0"|| curUserName == 0) {
+              infoWindow.setContent(`<h5 class="title">${point.title}</h5>`
               + `<img src="${point.image}" class="image" style="max-width:180px;mad-height:100px;">`
               + `<div class="description mt-2 mb-2">${point.description}</div>`
-              + `<button class="edit mb-2">Edit</button>`
+              + `<button class="edit mb-2" style="display:none">Edit</button>`
               + `<form action="/maps/editPoint" method="post" class="editPoint "
               style="display:none;
                      padding:7px;
@@ -142,8 +146,60 @@ console.log(urlString);
               + 'Image URL:<br><input type="text" style=width:100% class="editImage"><br>'
               + 'Description:<br><input type="text" name="description" class="editDescription" style="width:100%;height:40px;"><br>'
               + '<button type="submit" style="margin-top:7px;">Update</button></form>'
-              + `<form class="delete"><button type="submit">Delete</button></form>`
-              + `<div style="display: none" class="point_id">${point.id.toString()}</div>`)
+              + `<form class="delete" style="display:none"><button type="submit style="display:none">Delete</button></form>`
+              + `<div style="display: none" class="point_id">${point.id.toString()}</div>`);
+            } else {
+
+              let creator = $('#creator').text().split(':')[1].trim();
+              let curUserName = $('#user_dropdown').text();
+              console.log("creator", creator);
+              console.log("curUserName", curUserName);
+              if(creator === curUserName) {
+
+                infoWindow.setContent(`<h5 class="title">${point.title}</h5>`
+                + `<img src="${point.image}" class="image" style="max-width:180px;mad-height:100px;">`
+                + `<div class="description mt-2 mb-2">${point.description}</div>`
+                + `<button class="edit mb-2">Edit</button>`
+                + `<form action="/maps/editPoint" method="post" class="editPoint "
+                style="display:none;
+                       padding:7px;
+                       margin-top: 10px;
+                       margin-bottom: 10px;
+                       background-color: #e6faff;
+                       border-style:dashed;
+                       border-width:1px;
+                       border-color:#00ccff;">
+                   Name:<br><input type="text" name="name" class="editName" style="width:100%;height:20px;"><br>`
+                + 'Image URL:<br><input type="text" style=width:100% class="editImage"><br>'
+                + 'Description:<br><input type="text" name="description" class="editDescription" style="width:100%;height:40px;"><br>'
+                + '<button type="submit" style="margin-top:7px;">Update</button></form>'
+                + `<form class="delete"><button type="submit">Delete</button></form>`
+                + `<div style="display: none" class="point_id">${point.id.toString()}</div>`);
+
+              } else {
+                infoWindow.setContent(`<h5 class="title">${point.title}</h5>`
+                + `<img src="${point.image}" class="image" style="max-width:180px;mad-height:100px;">`
+                + `<div class="description mt-2 mb-2">${point.description}</div>`
+                + `<button class="edit mb-2" style="display:none">Edit</button>`
+                + `<form action="/maps/editPoint" method="post" class="editPoint "
+                style="display:none;
+                       padding:7px;
+                       margin-top: 10px;
+                       margin-bottom: 10px;
+                       background-color: #e6faff;
+                       border-style:dashed;
+                       border-width:1px;
+                       border-color:#00ccff;">
+                   Name:<br><input type="text" name="name" class="editName" style="width:100%;height:20px;"><br>`
+                + 'Image URL:<br><input type="text" style=width:100% class="editImage"><br>'
+                + 'Description:<br><input type="text" name="description" class="editDescription" style="width:100%;height:40px;"><br>'
+                + '<button type="submit" style="margin-top:7px;">Update</button></form>'
+                + `<form class="delete" style="display:none"><button type="submit style="display:none">Delete</button></form>`
+                + `<div style="display: none" class="point_id">${point.id.toString()}</div>`);
+
+
+              }
+            }
             closeAllInfoWindows();
             infoWindow.open(map, newMarker);
           });
