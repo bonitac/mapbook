@@ -1,6 +1,6 @@
 # mapbook
 Midterm project for Lighthouse Labs Web Development Bootcamp
-Main Contributors: Hao Jiang, Estella Song, [Bonita Choi](https://github.com/bonitac)
+Main Contributors: [Hao Jiang](https://github.com/Polatouche0201), [Estella Song](https://github.com/estellajaysong), [Bonita Choi](https://github.com/bonitac)
 
 ## Overview
 For our Midterm Project, we created an app called mapbook that allows users to create a map with markers by inputing an address or location name to create a marker. The location's name, description, photo may be editted as desired. Users can add or remove locations to their own maps. Anyone may view all maps that have been created, but may only "like" a map once logged in. One may not like their own map.
