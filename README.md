@@ -21,3 +21,12 @@ For our Midterm Project, we created an app called mapbook that allows users to c
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+- Body-parser
+- Dotenv
+- EJS
+- JQuery
+- Knex
+- Knex-Logger
+- PostgreSQL
+- Sass
+- Morgan
