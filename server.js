@@ -73,8 +73,14 @@ app.get('/gm/maps/:mapID', (req, res) => {
 });
 
 app.get('/gm/favourite/:mapID', (req, res) => {
-  let mapID = req.params.mapID;
-  getSpecificMapInfo(mapID, req, res);
+  if (!req.params.mapID){
+    console.log("No favourites")
+  }
+  else{
+    let mapID = req.params.mapID;
+    getSpecificMapInfo(mapID, req, res);
+  }
+  
 });
 
 app.get('/gm/contribute/:mapID', (req, res) => {
@@ -216,10 +222,9 @@ app.get("/contribute/:mapID", (req, res) => {
 
 // Favourite Maps
 app.get("/favourite", (req, res) => {
-  console.log("in favourites route")
   p_mapListType = 2;
-  if (knex.select("*").from("user_favourite").where("user_id", p_currentUserID).length == 0){
-    console.log("No favourites") // not hitting this - need to find bug
+  if (!knex.select("*").from("user_favourite").where("user_id", p_currentUserID).length){
+    res.send("No favourites") // want a better thing instead of just the plain text
   }
   else {
   knex.select("*").from("user_favourite").where("user_id", p_currentUserID)
