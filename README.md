@@ -11,7 +11,7 @@ All users may view maps, but one may not create a map if not logged in.
 ![Trying to Create Map Without Logging In](https://github.com/bonitac/mapbook/blob/master/docs/create_map_not_logged_in.png)
 
 Screenshot of "Favourite Maps"
-![Screenshot of "Favourite Maps"]()
+![Screenshot of "Favourite Maps"](https://github.com/bonitac/mapbook/blob/master/docs/show_favourite_maps.png)
 
 Screenshot of "Contributed Maps"
 ![Screenshot of "Contributed Maps"]()
