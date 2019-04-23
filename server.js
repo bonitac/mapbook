@@ -216,13 +216,19 @@ app.get("/contribute/:mapID", (req, res) => {
 
 // Favourite Maps
 app.get("/favourite", (req, res) => {
+  console.log("in favourites route")
   p_mapListType = 2;
+  if (knex.select("*").from("user_favourite").where("user_id", p_currentUserID).length == 0){
+    console.log("No favourites") // not hitting this - need to find bug
+  }
+  else {
   knex.select("*").from("user_favourite").where("user_id", p_currentUserID)
     .then((results) => {
       let ufObj = JSON.parse(JSON.stringify(results));
       let lastestMap = ufObj[ufObj.length - 1].map_id;
       res.redirect("/favourite/" + lastestMap.toString());
     });
+  }
 });
 
 // Selected A Map Page from Favourite Map List
