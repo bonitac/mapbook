@@ -223,17 +223,17 @@ app.get("/contribute/:mapID", (req, res) => {
 // Favourite Maps
 app.get("/favourite", (req, res) => {
   p_mapListType = 2;
-  if (!knex.select("*").from("user_favourite").where("user_id", p_currentUserID).length){
-    res.send("No favourites") // want a better thing instead of just the plain text
-  }
-  else {
+  // if (knex.select("*").from("user_favourite").where("user_id", p_currentUserID).length==undefined){
+  //   res.send("No favourites") // want a better thing instead of just the plain text
+  // }
+  // else {
   knex.select("*").from("user_favourite").where("user_id", p_currentUserID)
     .then((results) => {
       let ufObj = JSON.parse(JSON.stringify(results));
       let lastestMap = ufObj[ufObj.length - 1].map_id;
-      res.redirect("/favourite/" + lastestMap.toString());
+      res.redirect("/favourite/" + lastestMap.toString()); //for some reason when showing favourites, changes the created by to the favourited user instad of keeping as the original creator
     });
-  }
+  // }
 });
 
 // Selected A Map Page from Favourite Map List
