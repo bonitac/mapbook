@@ -43,11 +43,14 @@ let p_mapListType = 1;  // 1-All Maps, 2-Favourite Maps, 3-Contributed Maps
 // Maps page
 app.get("/maps", (req, res) => {
   p_mapListType = 1;
-  knex.select("*").from("maps").then((results) => {
-    let mapsObj = JSON.parse(JSON.stringify(results));
-    let lastestMap = mapsObj[mapsObj.length - 1].id;
-    res.redirect("/maps/" + lastestMap.toString());
-  });
+  if (knex.select("*").from("maps").length == 0){}
+  else {
+    knex.select("*").from("maps").then((results) => {
+      let mapsObj = JSON.parse(JSON.stringify(results));
+      let lastestMap = mapsObj[mapsObj.length - 1].id;
+      res.redirect("/maps/" + lastestMap.toString());
+    });
+  }
 });
 
 function getSpecificMapInfo(mapID, req, res) {
@@ -89,10 +92,10 @@ app.post('/like', (req, res) => {
 });
 
 app.get('/unlike', (req, res) => {
-  console.log(">>> ", req.query);
+  // console.log(">>> ", req.query);
   knex('user_favourite').where("user_id",req.query.user_id).andWhere("map_id",req.query.map_id)
     .del().then((result) => {
-    console.log(">>> Delete complete!");
+    // console.log(">>> Delete complete!");
     res.json({ result: true});
     // res.redirect("/maps/" + req.params.mapID);
   });

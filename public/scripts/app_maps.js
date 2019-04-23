@@ -26,7 +26,7 @@ $(document).ready( () => {
 
     let curUserName = $('#uid').html();
     if(curUserName === "0"|| curUserName == 0) { // Cannot like contributed map
-      alert('Please login at first.');
+      alert('Please login first.');
     } else {
       let insertObj = {};
       insertObj.title = $('#new_map_name').val();
