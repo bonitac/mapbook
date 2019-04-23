@@ -48,7 +48,7 @@ app.get("/maps", (req, res) => {
     knex.select("*").from("maps").then((results) => {
       let mapsObj = JSON.parse(JSON.stringify(results));
       let lastestMap = mapsObj[mapsObj.length - 1].id;
-      res.redirect("/maps/" + lastestMap.toString());
+      res.redirect("/maps/" + lastestMap.toString()); //doesn't show icon of created if not logged in as that user and no icons  if not logged in
     });
   }
 });
