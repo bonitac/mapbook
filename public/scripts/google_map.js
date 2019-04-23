@@ -7,7 +7,7 @@ function initAutocomplete() {
   // Instantiate a google map
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 49.2827, lng: -123.1207 },
-    zoom: 11,
+    zoom: 15,
     mapTypeId: 'roadmap'
   });
   // Create the search box and link it to the UI element.
@@ -102,7 +102,7 @@ let markers = [];
 let infoWindows = [];
 function loadMarkers(type, mapID) {
   let urlString = "/gm/" + type + "/" + mapID;
-console.log(urlString);
+// console.log(urlString);
   $.ajax({
     method: 'get',
     url: urlString,
