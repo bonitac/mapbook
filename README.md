@@ -14,13 +14,13 @@ Screenshot of "Favourite Maps"
 ![Screenshot of "Favourite Maps"](https://github.com/bonitac/mapbook/blob/master/docs/show_favourite_maps.png)
 
 Screenshot of "Contributed Maps"
-![Screenshot of "Contributed Maps"]()
+![Screenshot of "Contributed Maps"](https://github.com/bonitac/mapbook/blob/master/docs/show_contributed_maps.png)
 
 A user may not like a map that they have created.
 ![Gif of Liking Maps](https://github.com/bonitac/mapbook/blob/master/docs/2019-04-23%2014.39.00.gif)
 
 A screenshot of a map with many points with a specific point clicked
-![Screenshot of map with many points with a specific point clicked]()
+![Screenshot of map with many points with a specific point clicked](https://github.com/bonitac/mapbook/blob/master/docs/map_with_many_points_and_info_window.png)
 
 Gif of Creating a map once logged in
 ![Gif of Creating a map once logged in]()
